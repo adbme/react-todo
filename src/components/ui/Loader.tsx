@@ -2,7 +2,7 @@ import loaderBg from '../../assets/loader.png';
 import logoLight from '../../assets/logo-light.svg';
 import background from '../../assets/background.png';
 
-const Loader = ({ isLoading }: any) => {
+const Loader = ({ isLoading }: { isLoading: boolean }) => {
     return (
         <div
             className={`z-50 fixed inset-0 z-50 w-screen h-screen bg-cover bg-no-repeat bg-center flex flex-col items-center justify-center transition-opacity duration-500 ease-in-out
