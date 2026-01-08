@@ -8,16 +8,16 @@ interface TodoItemProps {
     dueDate: string;
 }
 
-const TodoItem = ({ id, title, description, done, dueDate }: TodoItemProps) => {
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', {
-            month: 'short',
-            day: 'numeric',
-            year: 'numeric'
-        });
-    };
+const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+    });
+};
 
+const TodoItem = ({ id, title, description, done, dueDate }: TodoItemProps) => {
     return (
         <div className="bg-white/60 backdrop-blur-[50.1665px] border border-gray-200 p-4 rounded-lg flex flex-col gap-2">
             <div className="flex justify-between items-start">
