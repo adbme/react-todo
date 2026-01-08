@@ -21,7 +21,7 @@ const App = () => {
   useEffect(() => {
     const timer = new Promise((resolve) => setTimeout(resolve, 2000));
 
-    const handleMouseMove = (e: { clientX: any; clientY: any; }) => {
+    const handleMouseMove = (e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY });
     };
 
