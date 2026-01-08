@@ -3,7 +3,6 @@ import Header from './components/layout/Header';
 import Navbar from './components/layout/Navbar';
 import LandingView from './views/LandingView';
 import TodoListView from './views/TodoListView';
-import InputGroup from './components/ui/InputGroup';
 import './styles/index.css';
 import Loader from './components/ui/Loader';
 import { Swiper, SwiperSlide } from "swiper/react";
