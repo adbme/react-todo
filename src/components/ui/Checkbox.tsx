@@ -11,16 +11,26 @@ const Checkbox = ({
   defaultChecked = false,
   onChange,
 }: CheckboxProps) => {
-  const [isChecked, setIsChecked] = useState(defaultChecked);
+  const [internalChecked, setInternalChecked] = useState(defaultChecked);
+
+  const isControlled = checked !== undefined;
+  const isChecked = isControlled ? checked : internalChecked;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newChecked = e.target.checked;
+    if (!isControlled) {
+      setInternalChecked(newChecked);
+    }
+    onChange?.(newChecked);
+  };
 
   return (
     <div className="flex items-center">
       <label className="relative cursor-pointer">
         <input
           type="checkbox"
-          checked={checked}
-          defaultChecked={defaultChecked}
-          onChange={(e) => onChange?.(e.target.checked)}
+          checked={isChecked}
+          onChange={handleChange}
           className="sr-only"
         />
 

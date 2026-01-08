@@ -22,24 +22,27 @@ const App = () => {
   const BASE_TRANSITION_DURATION = 0.08;
   const TRANSITION_DECREMENT = 0.02;
 
-  useEffect(() => {
-    const timer = new Promise((resolve) => setTimeout(resolve, 2000));
-
+useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
+        setMousePos({ x: e.clientX, y: e.clientY });
     };
 
     window.addEventListener('mousemove', handleMouseMove);
 
-    Promise.all([timer]).then(() => {
-      setIsLoading(false);
-      setTimeout(() => setShowLoader(false), 500);
-    });
+    let hideLoaderTimeout: number;
+    const loadingTimeout = setTimeout(() => {
+        setIsLoading(false);
+        hideLoaderTimeout = setTimeout(() => {
+            setShowLoader(false);
+        }, 500);
+    }, 2000);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mousemove', handleMouseMove);
+        clearTimeout(loadingTimeout);
+        clearTimeout(hideLoaderTimeout);
     };
-  }, []);
+}, []);
 
   return (
     <div className="flex justify-center h-screen">
