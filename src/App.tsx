@@ -5,11 +5,10 @@ import LandingView from './views/LandingView';
 import TodoListView from './views/TodoListView';
 import './styles/index.css';
 import Loader from './components/ui/Loader';
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 import Background from './components/ui/Background';
 import type { Swiper as SwiperType } from 'swiper';
-
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -41,13 +40,13 @@ const App = () => {
   return (
     <div className="flex justify-center h-screen">
       {[0.2, 0.4, 0.6, 0.8, 1].map((index) => (
-        <div 
+        <div
           key={index}
-          className='halo'
+          className="halo"
           style={{
             left: `${mousePos.x}px`,
             top: `${mousePos.y}px`,
-                        transition: `all ${0.08 - index * 0.02}s linear`
+            transition: `all ${0.08 - index * 0.02}s linear`,
           }}
         />
       ))}
@@ -58,7 +57,7 @@ const App = () => {
 
       <Header activeIndex={activeIndex} />
 
-      <main className='w-screen'>
+      <main className="w-screen">
         <Swiper
           className="mySwiper h-full"
           onSwiper={setSwiper}

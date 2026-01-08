@@ -52,7 +52,7 @@ body {
 
 @media (max-height: 1000px) {
   header {
-    padding: 20px !important;
+    padding: 20px;
   }
 }
 
@@ -62,7 +62,6 @@ body {
     height: 80vh;
   }
 }
-
 
 .halo {
   position: fixed;
