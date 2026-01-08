@@ -2,7 +2,7 @@ import logoIcon from '../../assets/logo.svg';
 import profilePicture from '../../assets/profile-picture.svg';
 
 
-const Header = ({ activeIndex }: any) => {
+const Header = ({ activeIndex }: { activeIndex: number }) => {
     return (
         <header className={`z-40 fixed w-screen top-0 px-10 transition-all duration-700 ease-in-out  
             ${activeIndex === 1 ? 'py-20 bg-white border-b border-b-gray-200' : 'py-10 border-b border-b-white/0'}`}
