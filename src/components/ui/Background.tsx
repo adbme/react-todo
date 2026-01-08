@@ -1,6 +1,6 @@
 import bgLayer1 from '../../assets/bg-layer-1.png';
 
-const Background = ({ activeIndex }: any) => {
+const Background = ({ activeIndex }: { activeIndex: number }) => {
     return (
         <div className="fixed w-screen h-screen overflow-hidden">
             <img 
