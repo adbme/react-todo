@@ -8,14 +8,15 @@ import Loader from './components/ui/Loader';
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Background from './components/ui/Background';
+import type { Swiper as SwiperType } from 'swiper';
 
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showLoader, setShowLoader] = useState(true);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [swiper, setSwiper] = useState<SwiperType | null>(null);
 
-  const [swiper, setSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
