@@ -1,19 +1,26 @@
 import { useState } from 'react';
 
 interface CheckboxProps {
-    defaultChecked?: boolean;
+  checked?: boolean;
+  defaultChecked?: boolean;
+  onChange?: (checked: boolean) => void;
 }
 
-const Checkbox = ({ defaultChecked = false }: CheckboxProps) => {
+const Checkbox = ({ 
+  checked, 
+  defaultChecked = false, 
+  onChange 
+}: CheckboxProps) => {
     const [isChecked, setIsChecked] = useState(defaultChecked);
-
+    
     return (
         <div className="flex items-center">
             <label className="relative cursor-pointer">
                 <input 
-                    type="checkbox" 
-                    checked={isChecked}
-                    onChange={(e) => setIsChecked(e.target.checked)}
+      type="checkbox"
+      checked={checked}
+      defaultChecked={defaultChecked}
+      onChange={(e) => onChange?.(e.target.checked)}
                     className="sr-only"
                 />
                 
