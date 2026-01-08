@@ -18,6 +18,10 @@ const App = () => {
 
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const HALO_OPACITIES = [0.2, 0.4, 0.6, 0.8, 1] as const;
+  const BASE_TRANSITION_DURATION = 0.08;
+  const TRANSITION_DECREMENT = 0.02;
+
   useEffect(() => {
     const timer = new Promise((resolve) => setTimeout(resolve, 2000));
 
@@ -39,14 +43,14 @@ const App = () => {
 
   return (
     <div className="flex justify-center h-screen">
-      {[0.2, 0.4, 0.6, 0.8, 1].map((index) => (
+      {HALO_OPACITIES.map((opacity, index) => (
         <div
-          key={index}
+          key={opacity}
           className="halo"
           style={{
             left: `${mousePos.x}px`,
             top: `${mousePos.y}px`,
-            transition: `all ${0.08 - index * 0.02}s linear`,
+            transition: `all ${BASE_TRANSITION_DURATION - index * TRANSITION_DECREMENT}s linear`,
           }}
         />
       ))}

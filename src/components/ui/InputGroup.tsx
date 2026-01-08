@@ -39,7 +39,7 @@ const InputGroup = ({
 
       <input
         type="text"
-        className={` ${inputIcon ? '' : 'md:w-[380px]'} !border-none !outline-none !ring-0 ${inputIcon ? 'pl-14 py-0' : 'pl-8 py-6'}`}
+        className={` !border-none !outline-none !ring-0 ${inputIcon ? 'pl-14 py-0' : 'pl-8 py-6'}`}
         placeholder={placeholder}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
