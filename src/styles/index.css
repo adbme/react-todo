@@ -2,77 +2,64 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
 
 :root {
-    --font-main: 'Sora', sans-serif;
+  --font-main: 'Sora', sans-serif;
 }
 
 body {
-    /* background-image: url("../assets/background.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover; */
-
-    font-family: var(--font-main);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    letter-spacing: -0.02em;
+  font-family: var(--font-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.02em;
 }
 
 .custom-shadow {
-    filter: drop-shadow(0px 10px 30px rgb(255, 255, 255));
+  filter: drop-shadow(0px 10px 30px rgb(255, 255, 255));
 }
 
 .animate-custom-shadow {
-    filter: drop-shadow(0px 15px 40px rgba(255, 255, 255, 0.9));
-    transition: filter 700ms ease-in-out;
+  filter: drop-shadow(0px 15px 40px rgba(255, 255, 255, 0.9));
+  transition: filter 700ms ease-in-out;
 }
 
 .no-shadow {
-    filter: drop-shadow(0px 5px 15px rgba(255, 0, 0, 0));
-    transition: filter 700ms ease-in-out;
+  filter: drop-shadow(0px 5px 15px rgba(255, 0, 0, 0));
+  transition: filter 700ms ease-in-out;
 }
 
 @keyframes loading-bar {
-    0% { width: 0%; }
-    100% { width: 100%; }
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 100%;
+  }
 }
 
 .animate-loading-bar {
-    animation: loading-bar 2s ease-in-out infinite;
+  animation: loading-bar 2s ease-in-out infinite;
 }
 
 .header-light {
-    background-color: white;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  background-color: white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .bg-blur-custom {
-    background: rgba(240, 240, 240, 0.2);
-    backdrop-filter: blur(61.6px);
+  background: rgba(240, 240, 240, 0.2);
+  backdrop-filter: blur(61.6px);
 }
-
-/* @media (max-height:1000px && max-width:) {
-  .todos-containter {
-
-  }
-} */
 
 @media (max-height: 1000px) {
   header {
     padding: 20px !important;
   }
-
-  /* .todos-containter {
-    height: 90vh !important;
-    bottom:40px;
-        background-color: red;
-
-  } */
 }
 
 @media (max-height: 1500px) {
   .todos-containter {
-    bottom:40px;
-        height: 80vh;
+    bottom: 40px;
+    height: 80vh;
   }
 }
 
