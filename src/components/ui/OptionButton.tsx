@@ -1,7 +1,6 @@
 import React from 'react';
 
 interface OptionButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    // Pas besoin de redéclarer children !
 }
 
 const OptionButton = ({
