@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface OptionButtonProps extends React.ButtonHTMLAttributes<HTMLInputElement> {
+interface InputDateProps extends React.ButtonHTMLAttributes<HTMLInputElement> {
     
 }
 
@@ -8,7 +8,7 @@ const InputDate = ({
     value,
     className = '',
     ...props
-}: OptionButtonProps) => {
+}: InputDateProps) => {
     return (
     
         <input
