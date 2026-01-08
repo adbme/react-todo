@@ -1,7 +1,8 @@
 import navbarImg from '../../assets/navbar.svg';
 import Button from '../ui/Button';
+import { Swiper } from 'swiper';
 
-const Navbar = ({ swiper, activeIndex }: any) => {
+const Navbar = ({ swiper, activeIndex }: { swiper: Swiper | null, activeIndex: number }) => {
     return (
         <nav className="z-40 fixed w-screen bottom-0 flex justify-center items-center">
             <div className='w-[90%] md:w-[50%] max-w-sm flex items-center justify-center'>
