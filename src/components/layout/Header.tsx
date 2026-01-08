@@ -1,7 +1,6 @@
 import logoIcon from '../../assets/logo.svg';
 import profilePicture from '../../assets/profile-picture.svg';
 
-
 const Header = ({ activeIndex }: { activeIndex: number }) => {
     return (
         <header className={`z-40 fixed w-screen top-0 px-10 transition-all duration-700 ease-in-out  
@@ -9,10 +8,8 @@ const Header = ({ activeIndex }: { activeIndex: number }) => {
         >
             <div className='flex justify-between w-full max-w-7xl mx-auto '>
                 {/* logo */}
-                <a href='/'>
                     <img src={logoIcon} className="h-8 w-auto transition-all hover:scale-95" alt="reado logo" />
-                </a>
-
+                
                 {/* profile icon */}
                 <div>
                     <img src={profilePicture} className="h-8 w-auto" alt="profile" />
