@@ -46,6 +46,7 @@ const TodoList = () => {
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 const fetchTodos = fetch("https://api.todos.in.jt-lab.ch:443/todos")
   .then(async (res) => {
+    // PROD : delete
     await delay(5000);
 
     if (!res.ok) throw new Error('API Error');
