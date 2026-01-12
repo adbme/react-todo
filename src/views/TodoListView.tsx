@@ -43,7 +43,7 @@ const TodoList = () => {
 };
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-const fetchTodos = fetch("https://api.todos.in.jt-lab.ch:443/todsos")
+const fetchTodos = fetch("https://api.todos.in.jt-lab.ch:443/todos")
   .then(async (res) => {
     await delay(5000); 
 
@@ -52,7 +52,7 @@ const fetchTodos = fetch("https://api.todos.in.jt-lab.ch:443/todsos")
     return res.json() as Promise<TodoItemProps[]>;
   })
   .catch((err) => {
-    toast.error("Impossible de charger les tâches. Vérifiez l'URL !");
+    toast.error("Failed to fetch todos");
     return [] as TodoItemProps[]; 
   });
   
