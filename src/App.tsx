@@ -6,6 +6,8 @@ import TodoListView from './views/TodoListView';
 import './styles/index.css';
 import './styles/animations.css';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Loader from './components/ui/Loader';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -49,8 +51,8 @@ useEffect(() => {
         />
       ))}
 
+      <ToastContainer position="top-right" theme="dark" />
       <Background activeIndex={activeIndex} />
-
       <Header activeIndex={activeIndex} />
 
       <main className="w-screen">

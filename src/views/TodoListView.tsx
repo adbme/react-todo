@@ -5,6 +5,7 @@ import InputGroup from '../components/ui/InputGroup';
 import OptionButton from '../components/ui/OptionButton';
 import { use, Suspense } from 'react';
 import Spinner from '../components/ui/Spinner';
+import { toast } from 'react-toastify';
 
 
 
@@ -44,10 +45,17 @@ const TodoList = () => {
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 const fetchTodos = fetch("https://api.todos.in.jt-lab.ch:443/todsos")
   .then(async (res) => {
-    if (!res.ok) throw new Error('Failed to fetch todos');
-    await delay(2000);
+    await delay(5000); 
+
+    if (!res.ok) throw new Error('API Error'); 
+    
     return res.json() as Promise<TodoItemProps[]>;
+  })
+  .catch((err) => {
+    toast.error("Impossible de charger les tâches. Vérifiez l'URL !");
+    return [] as TodoItemProps[]; 
   });
+  
 
 
 const TodoListView = () => {
