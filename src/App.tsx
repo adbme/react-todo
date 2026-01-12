@@ -4,6 +4,8 @@ import Navbar from './components/layout/Navbar';
 import LandingView from './views/LandingView';
 import TodoListView from './views/TodoListView';
 import './styles/index.css';
+import './styles/animations.css';
+
 import Loader from './components/ui/Loader';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -11,8 +13,6 @@ import Background from './components/ui/Background';
 import type { Swiper as SwiperType } from 'swiper';
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [showLoader, setShowLoader] = useState(true);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
 
@@ -29,18 +29,9 @@ useEffect(() => {
 
     window.addEventListener('mousemove', handleMouseMove);
 
-    let hideLoaderTimeout: number;
-    const loadingTimeout = setTimeout(() => {
-        setIsLoading(false);
-        hideLoaderTimeout = setTimeout(() => {
-            setShowLoader(false);
-        }, 500);
-    }, 2000);
-
+  
     return () => {
         window.removeEventListener('mousemove', handleMouseMove);
-        clearTimeout(loadingTimeout);
-        clearTimeout(hideLoaderTimeout);
     };
 }, []);
 
@@ -57,8 +48,6 @@ useEffect(() => {
           }}
         />
       ))}
-
-      {showLoader && <Loader isLoading={isLoading} />}
 
       <Background activeIndex={activeIndex} />
 
