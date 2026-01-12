@@ -10,7 +10,7 @@ const Navbar = ({
   activeIndex: number;
 }) => {
   return (
-    <nav className="z-40 fixed w-screen bottom-0 flex justify-center items-center">
+    <nav className="animate-entry-up z-40 fixed w-screen bottom-0 flex justify-center items-center">
       <div className="w-[90%] md:w-[50%] max-w-sm flex items-center justify-center">
         <img
           src={navbarImg}

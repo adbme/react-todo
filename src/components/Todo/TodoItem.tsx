@@ -1,11 +1,12 @@
 import Checkbox from '../ui/Checkbox';
 
-interface TodoItemProps {
+export interface TodoItemProps {
   id: number;
   title: string;
-  description: string;
+  content: string;
   done: boolean;
   dueDate: string;
+  index?: number;
 }
 
 const formatDate = (dateString: string) => {
@@ -17,9 +18,11 @@ const formatDate = (dateString: string) => {
   });
 };
 
-const TodoItem = ({ id, title, description, done, dueDate }: TodoItemProps) => {
+const TodoItem = ({ id, title, content, done, dueDate, index = 0 }: TodoItemProps) => {
   return (
-    <div className="bg-white/60 backdrop-blur-[50.1665px] border border-gray-200 p-4 rounded-lg flex flex-col gap-2">
+    <div style={{
+      animationDelay: `${index * 100}ms`
+    }} className="animate-entry-up bg-white/60 backdrop-blur-[50.1665px] border border-gray-200 p-4 rounded-lg flex flex-col gap-2">
       <div className="flex justify-between items-start">
         <div className="flex gap-4 items-start flex-1">
           <Checkbox defaultChecked={done} />
@@ -42,7 +45,7 @@ const TodoItem = ({ id, title, description, done, dueDate }: TodoItemProps) => {
         </button>
       </div>
       <div>
-        <p className="truncate text-gray-400 text-sm mt-1">{description}</p>
+        <p className="truncate text-gray-400 text-sm mt-1">{content}</p>
       </div>
 
       <div className="flex items-center gap-2 text-sm text-gray-400 mt-2">
