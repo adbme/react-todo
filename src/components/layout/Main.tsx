@@ -1,10 +1,10 @@
-import { use, useState } from 'react';
+import { memo, use, useState } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import LandingView from '../../views/LandingView';
 import TodoListView from '../../views/TodoListView';
 import { fetchTodos } from '../../services/todosService';
-import type { TodoItemProps } from '../Todo/TodoItem';
+import type { FullTodo } from '../Todo/TodoItem';
 
 type MainProps = {
   setSwiper: (S: SwiperType | null) => void
@@ -16,11 +16,11 @@ const todoPromise = fetchTodos();
 
 console.log(todoPromise)
 
-const Main = ({ setSwiper, setActiveIndex, swiper }: MainProps) => {
+const Main = memo(({ setSwiper, setActiveIndex, swiper }: MainProps) => {
   const initalTodos = use(todoPromise);
   const [todos, setTodos] = useState(initalTodos);
 
-  const addTodo = (newTodo: TodoItemProps) => {
+  const addTodo = (newTodo: FullTodo) => {
     setTodos((prevTodos) => [...prevTodos, newTodo]);
   }
 
@@ -32,15 +32,15 @@ const Main = ({ setSwiper, setActiveIndex, swiper }: MainProps) => {
         onSlideChange={(s) => setActiveIndex(s.activeIndex)}
       >
         <SwiperSlide>
-          <LandingView swiper={swiper} onTodoCreated={addTodo} />
+          <TodoListView todos={todos} />
         </SwiperSlide>
 
         <SwiperSlide>
-          <TodoListView todos={todos} />
+          <LandingView swiper={swiper} onTodoCreated={addTodo} />
         </SwiperSlide>
       </Swiper>
     </main>
   );
-};
+});
 
 export default Main;
