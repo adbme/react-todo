@@ -61,8 +61,6 @@ const deleteTodoApi = async (id: number | string): Promise<void> => {
     // PROD: SUPPRIMER
     await delay(500);
 
-    console.log("delete response", response);
-
     if (!response.ok) {
         throw new Error(`Failed to delete todo with id ${id}`);
     }
