@@ -1,18 +1,17 @@
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import Header from './components/layout/Header';
 import Navbar from './components/layout/Navbar';
-import LandingView from './views/LandingView';
-import TodoListView from './views/TodoListView';
 import './styles/index.css';
 import './styles/animations.css';
 
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Loader from './components/ui/Loader';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import Background from './components/ui/Background';
 import type { Swiper as SwiperType } from 'swiper';
+import Main from './components/layout/Main';
+import Spinner from './components/ui/Spinner';
+import { ErrorBoundary } from 'react-error-boundary';
 
 const App = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -24,18 +23,17 @@ const App = () => {
   const BASE_TRANSITION_DURATION = 0.08;
   const TRANSITION_DECREMENT = 0.02;
 
-useEffect(() => {
+  useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-        setMousePos({ x: e.clientX, y: e.clientY });
+      setMousePos({ x: e.clientX, y: e.clientY });
     };
 
     window.addEventListener('mousemove', handleMouseMove);
 
-  
     return () => {
-        window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mousemove', handleMouseMove);
     };
-}, []);
+  }, []);
 
   return (
     <div className="flex justify-center h-screen">
@@ -55,21 +53,11 @@ useEffect(() => {
       <Background activeIndex={activeIndex} />
       <Header activeIndex={activeIndex} />
 
-      <main className="w-screen">
-        <Swiper
-          className="mySwiper h-full"
-          onSwiper={setSwiper}
-          onSlideChange={(s) => setActiveIndex(s.activeIndex)}
-        >
-          <SwiperSlide>
-            <LandingView />
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <TodoListView />
-          </SwiperSlide>
-        </Swiper>
-      </main>
+      <ErrorBoundary fallback={"Failed to load todos"} onError={(error) => { toast.error(error.message); }}>
+        <Suspense fallback={<Spinner variant="button" text="Loading" />}>
+          <Main setSwiper={setSwiper} swiper={swiper} setActiveIndex={setActiveIndex} />
+        </Suspense>
+      </ErrorBoundary>
 
       <Navbar swiper={swiper} activeIndex={activeIndex} />
     </div>

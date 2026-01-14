@@ -1,4 +1,5 @@
 import React from 'react';
+import { useFormStatus } from 'react-dom';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'fill' | 'outline';
@@ -11,6 +12,7 @@ const Button = ({
   rounded = 'normal',
   children,
   className = '',
+  disabled,
   ...props
 }: ButtonProps) => {
   const baseStyles =
@@ -26,12 +28,13 @@ const Button = ({
     normal: 'rounded-xl',
     full: 'rounded-full',
   };
+  const { pending } = useFormStatus();
 
   return (
     <button
-      className={`${baseStyles} ${variants[variant]} ${roundedStyles[rounded]} ${className}`}
-      {...props}
-    >
+      disabled={pending || disabled}
+      className={`${baseStyles} ${variants[variant]} ${roundedStyles[rounded]} ${className} ${disabled || pending ? 'pointer-events-none' : ''}`}
+      {...props}>      
       {children}
     </button>
   );
