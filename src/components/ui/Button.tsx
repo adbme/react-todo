@@ -32,8 +32,8 @@ const Button = ({
 
   return (
     <button
-      disabled={pending}
-      className={`${baseStyles} ${variants[variant]} ${roundedStyles[rounded]} ${className} ${disabled ? 'pointer-events-none' : ''}`}
+      disabled={pending || disabled}
+      className={`${baseStyles} ${variants[variant]} ${roundedStyles[rounded]} ${className} ${disabled || pending ? 'pointer-events-none' : ''}`}
       {...props}>      
       {children}
     </button>
