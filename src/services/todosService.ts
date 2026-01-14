@@ -1,10 +1,10 @@
-import type { FullTodo, TodoItemProps } from "../components/Todo/TodoItem";
+import type { FullTodo, Todo } from "../components/Todo/TodoItem";
 
 const API_URL = 'https://api.todos.in.jt-lab.ch/todos';
 
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-const createTodo = async (todo: TodoItemProps): Promise<FullTodo> => {
+const createTodo = async (todo: Todo): Promise<FullTodo> => {
     const apiData = {
         title: todo.title,
         content: todo.content,
@@ -50,8 +50,27 @@ const fetchTodos = async (): Promise<FullTodo[]> => {
     }));
 }
 
+const deleteTodoApi = async (id: number | string): Promise<void> => {
+    const response = await fetch(`${API_URL}?id=eq.${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json'
+        },
+    });
+
+    // PROD: SUPPRIMER
+    await delay(500);
+
+    console.log("delete response", response);
+
+    if (!response.ok) {
+        throw new Error(`Failed to delete todo with id ${id}`);
+    }
+};
+
 
 export {
     fetchTodos,
-    createTodo
+    createTodo,
+    deleteTodoApi
 }
