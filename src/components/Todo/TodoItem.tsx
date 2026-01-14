@@ -29,7 +29,8 @@ const TodoItem = ({ id, title, content, done, dueDate, index = 0 }: TodoItemProp
           <h1
             className={`text-xl font-bold ${done ? 'line-through text-gray-400' : ''}`}
           >
-            {title}
+            {/* PROD: SUPPRIMER LE ID */}
+            {title} - ({id})
           </h1>
         </div>
 
