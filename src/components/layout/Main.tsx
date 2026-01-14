@@ -22,6 +22,10 @@ const Main = memo(({ setSwiper, setActiveIndex, swiper }: MainProps) => {
     setTodos((prevTodos) => [...prevTodos, newTodo]);
   }
 
+  const removeTodo = (id: number) => {
+    setTodos((prevTodos) => prevTodos.filter(todo => todo.id !== id))
+  }
+
   return (
     <main className="w-screen">
       <Swiper
@@ -30,7 +34,7 @@ const Main = memo(({ setSwiper, setActiveIndex, swiper }: MainProps) => {
         onSlideChange={(s) => setActiveIndex(s.activeIndex)}
       >
         <SwiperSlide>
-          <TodoListView todos={todos} />
+          <TodoListView todos={todos} onTodoDeleted={removeTodo} />
         </SwiperSlide>
 
         <SwiperSlide>
