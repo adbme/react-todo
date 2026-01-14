@@ -23,7 +23,7 @@ const TodoError = () => {
   )
 }
 
-const TodoList = ({ todos }: { todos: FullTodo[] }) => { 
+const TodoList = ({ todos }: { todos: FullTodo[] }) => {
   return (
     <>
       {todos.map((todo, index) => (
@@ -41,7 +41,7 @@ const TodoList = ({ todos }: { todos: FullTodo[] }) => {
   );
 };
 
-const TodoListView = ({ todos }: { todos: TodoItemProps[] }) => {
+const TodoListView = ({ todos }: { todos: FullTodo[] }) => {
   return (
     <div className="w-screen h-screen flex items-center justify-center p-8">
       <div className="todos-containter h-[70vh] max-md:bottom-[100px] absolute pt-10 max-xl:px-10 w-screen overflow-y-auto">
