@@ -14,8 +14,6 @@ type MainProps = {
 
 const todoPromise = fetchTodos();
 
-console.log(todoPromise)
-
 const Main = memo(({ setSwiper, setActiveIndex, swiper }: MainProps) => {
   const initalTodos = use(todoPromise);
   const [todos, setTodos] = useState(initalTodos);
