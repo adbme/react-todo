@@ -27,20 +27,15 @@ type TodoItemProps = { todo: FullTodo, index: number, onTodoDeleted: (id: number
 const TodoItem = ({ todo, index, onTodoDeleted }: TodoItemProps) => {
 
   const deleteTodo = (id: number) => async () => {
-    console.log("deleting todo", id);
     try {
       await deleteTodoApi(id);
       onTodoDeleted(id);
-    } catch (error: any) {
+      toast.success("Todo deleted successfully")
+    } catch (error: unknown) {
       console.error('Failed to delete todo:', error);
-      const message = error?.message || "failed to delete todo";
-      toast.error(message);
-      return message;
+      toast.error(error instanceof Error ? error.message : "failed to delete todo");
     }
 
-    const message = "Todo deleted successfully";
-    toast.success(message)
-    return message;
   }
 
   return (
