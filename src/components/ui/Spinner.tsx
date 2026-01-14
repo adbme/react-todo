@@ -23,7 +23,7 @@ const Spinner = ({ variant = 'normal', text = "" }: SpinnerProps) => {
     }
 
     return (
-        <div className="pointer-events-none inline-block">
+        <div className="h-screen w-screen absolute flex items-center justify-center pointer-events-none">
             <Button variant="fill" rounded="normal">
                 {loader}
             </Button>
