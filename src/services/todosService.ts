@@ -22,8 +22,7 @@ const createTodo = async (todo: TodoItemProps): Promise<FullTodo> => {
         body: JSON.stringify(apiData),
     });
 
-    console.log("Response:", response);
-
+    // PROD: SUPPRIMER
     await delay(500);
 
     if (!response.ok) throw new Error('Failed to create todo');
@@ -35,6 +34,7 @@ const createTodo = async (todo: TodoItemProps): Promise<FullTodo> => {
 const fetchTodos = async (): Promise<FullTodo[]> => {
     const response = await fetch(API_URL);
 
+    // PROD: SUPPRIMER
     await delay(500);
 
     if (!response.ok) throw new Error('Failed to fetch todos');
