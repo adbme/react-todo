@@ -5,8 +5,6 @@ const API_URL = 'https://api.todos.in.jt-lab.ch/todos';
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 const createTodo = async (todo: TodoItemProps): Promise<FullTodo> => {
-    console.log("Creating todo:", todo);
-
     const apiData = {
         title: todo.title,
         content: todo.content,
