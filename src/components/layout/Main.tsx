@@ -1,4 +1,4 @@
-import { memo, use, useState } from 'react';
+import { memo, use, useCallback, useState } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import LandingView from '../../views/LandingView';
@@ -22,9 +22,9 @@ const Main = memo(({ setSwiper, setActiveIndex, swiper }: MainProps) => {
     setTodos((prevTodos) => [...prevTodos, newTodo]);
   }
 
-  const removeTodo = (id: number) => {
-    setTodos((prevTodos) => prevTodos.filter(todo => todo.id !== id))
-  }
+  const removeTodo = useCallback((id: number) => {
+    setTodos((prevTodos) => prevTodos.filter(todo => todo.id !== id));
+  }, []);
 
   return (
     <main className="w-screen">
