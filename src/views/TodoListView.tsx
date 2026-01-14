@@ -40,8 +40,7 @@ const TodoList = ({ todos, onTodoDeleted }: TodoListProps) => {
   );
 };
 
-const TodoListView = ({ todos, onTodoDeleted }: { todos: FullTodo[], onTodoDeleted: (id: number) => void }) => {
-  return (
+const TodoListView = ({ todos, onTodoDeleted }: { todos: FullTodo[], onTodoDeleted: (id: number) => void }) => {  return (
     <div className="w-screen h-screen flex items-center justify-center p-8">
       <div className="todos-containter h-[70vh] max-md:bottom-[100px] absolute pt-10 max-xl:px-10 w-screen overflow-y-auto">
         <div className="max-w-7xl mx-auto flex items-center justify-between w-full mb-10">
