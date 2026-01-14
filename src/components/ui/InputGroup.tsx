@@ -52,12 +52,13 @@ const InputGroup = ({
     try {
       const createdTodo = await createTodo(newTodo);
       onSubmit(createdTodo);
-    } catch (error) {
-      const message = "failed to create todo"
-      toast.error(message)
+    } catch (error: any) {
+      console.error('Failed to create todo:', error);
+      const message = error?.message || "failed to create todo";
+      toast.error(message);
       return message;
     }
-
+    
     if (swiper) {
       swiper.slideTo(0);
     }
