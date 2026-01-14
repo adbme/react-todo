@@ -1,4 +1,4 @@
-import TodoItem, { type FullTodo, type TodoItemProps } from '../components/Todo/TodoItem';
+import TodoItem, { type FullTodo, type Todo } from '../components/Todo/TodoItem';
 import InputDate from '../components/ui/InputDate';
 import InputGroup from '../components/ui/InputGroup';
 import OptionButton from '../components/ui/OptionButton';
@@ -23,25 +23,24 @@ const TodoError = () => {
   )
 }
 
-const TodoList = ({ todos }: { todos: FullTodo[] }) => {
-  return (
+type TodoListProps = { todos: FullTodo[], onTodoDeleted: (id: number) => void  }
+
+const TodoList = ({ todos, onTodoDeleted }: TodoListProps) => {
+    return (
     <>
       {todos.map((todo, index) => (
         <TodoItem
           key={todo.id}
-          id={todo.id}
-          title={todo.title}
-          content={todo.content}
-          done={todo.done}
-          dueDate={todo.dueDate}
+          todo={todo}
           index={index}
+          onTodoDeleted={onTodoDeleted}
         />
       ))}
     </>
   );
 };
 
-const TodoListView = ({ todos }: { todos: FullTodo[] }) => {
+const TodoListView = ({ todos, onTodoDeleted }: { todos: FullTodo[], onTodoDeleted: (id: number) => void }) => {
   return (
     <div className="w-screen h-screen flex items-center justify-center p-8">
       <div className="todos-containter h-[70vh] max-md:bottom-[100px] absolute pt-10 max-xl:px-10 w-screen overflow-y-auto">
@@ -63,7 +62,7 @@ const TodoListView = ({ todos }: { todos: FullTodo[] }) => {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
           <ErrorBoundary fallback={<TodoError />} onError={(error) => { toast.error(error.message); }}>
             <Suspense fallback={<Spinner variant="button" text="Loading todos" />}>
-              <TodoList todos={todos} />
+              <TodoList todos={todos} onTodoDeleted={onTodoDeleted} />
             </Suspense>
           </ErrorBoundary>
         </div>
