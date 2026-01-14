@@ -1,6 +1,6 @@
 import { type ReactNode, useActionState, useState } from 'react';
 import Button from '../ui/Button';
-import type { FullTodo, TodoItemProps } from '../Todo/TodoItem';
+import type { FullTodo, Todo } from '../Todo/TodoItem';
 import { toast } from 'react-toastify';
 import type swiper from 'swiper';
 import { createTodo } from '../../services/todosService';
@@ -42,7 +42,7 @@ const InputGroup = ({
       return message;
     };
 
-    const newTodo: TodoItemProps = {
+    const newTodo: Todo = {
       title,
       content,
       dueDate: dueDate,
@@ -58,7 +58,7 @@ const InputGroup = ({
       toast.error(message);
       return message;
     }
-    
+
     if (swiper) {
       swiper.slideTo(0);
     }
