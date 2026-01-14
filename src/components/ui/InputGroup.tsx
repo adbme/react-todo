@@ -25,7 +25,7 @@ const InputGroup = ({
   const [isFocused, setIsFocused] = useState(false);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [due_date, setDueDate] = useState('');
+  const [dueDate, setDueDate] = useState('');
 
   const handleBlur = (e: React.FocusEvent) => {
     if (!e.currentTarget.contains(e.relatedTarget)) {
@@ -33,7 +33,7 @@ const InputGroup = ({
     }
   };
 
-  const isValid = title.trim().length > 0 && content.trim().length > 0 && due_date.trim().length > 0;
+  const isValid = title.trim().length > 0 && content.trim().length > 0 && dueDate.trim().length > 0;
 
   const handleTodoCreation = async (state, formData: FormData) => {
     if (!isValid) {
@@ -45,7 +45,7 @@ const InputGroup = ({
     const newTodo: TodoItemProps = {
       title,
       content,
-      dueDate: due_date,
+      dueDate: dueDate,
       done: false,
     };
 
