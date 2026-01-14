@@ -1,5 +1,5 @@
 import InputGroup from '../components/ui/InputGroup';
-import type { FullTodo, TodoItemProps } from '../components/Todo/TodoItem';
+import type { FullTodo } from '../components/Todo/TodoItem';
 import type swiper from 'swiper';
 
 type LandingProps = {
