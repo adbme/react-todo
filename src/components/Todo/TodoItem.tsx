@@ -1,12 +1,15 @@
 import Checkbox from '../ui/Checkbox';
 
 export interface TodoItemProps {
-  id: number;
   title: string;
   content: string;
   done: boolean;
   dueDate: string;
   index?: number;
+}
+
+export interface FullTodo extends TodoItemProps {
+  id: number;
 }
 
 const formatDate = (dateString: string) => {
@@ -18,7 +21,7 @@ const formatDate = (dateString: string) => {
   });
 };
 
-const TodoItem = ({ id, title, content, done, dueDate, index = 0 }: TodoItemProps) => {
+const TodoItem = ({ id, title, content, done, dueDate, index = 0 }: FullTodo) => {
   return (
     <div style={{
       animationDelay: `${index * 100}ms`
