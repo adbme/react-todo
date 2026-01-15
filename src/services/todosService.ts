@@ -67,6 +67,12 @@ const deleteTodoApi = async (id: number | string): Promise<void> => {
 };
 
 const updateTodoApi = async (id: number, updateFields: Partial<Todo>): Promise<void> => {
+    const { dueDate, ...rest } = updateFields;
+    const apiData: any = { ...rest };
+    if (dueDate !== undefined) {
+        apiData.due_date = dueDate;
+    }
+
     const response = await fetch(`${API_URL}?id=eq.${id}`, {
         method: 'PATCH',
         headers: {
@@ -74,7 +80,7 @@ const updateTodoApi = async (id: number, updateFields: Partial<Todo>): Promise<v
             'Prefer': 'return=representation',
             'Accept': 'application/vnd.pgrst.object+json'
         },
-        body: JSON.stringify(updateFields),
+        body: JSON.stringify(apiData),
     });
 
     // PROD: SUPPRIMER
