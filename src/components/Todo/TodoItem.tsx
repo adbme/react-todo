@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import Checkbox from '../ui/Checkbox';
 import { deleteTodoApi, updateTodoApi } from '../../services/todosService';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export interface Todo {
   title: string;
@@ -33,6 +33,13 @@ const TodoItem = ({ todo, index, onTodoDeleted, onTodoUpdated }: TodoItemProps) 
   const [localContent, setLocalContent] = useState(todo.content);
   const [localDueDate, setLocalDueDate] = useState(todo.dueDate);
   const [localDone, setLocalDone] = useState(todo.done);
+
+  useEffect(() => {
+    setLocalTitle(todo.title);
+    setLocalContent(todo.content);
+    setLocalDueDate(todo.dueDate);
+    setLocalDone(todo.done);
+  }, [todo]);
 
   const deleteTodo = (id: number) => async () => {
     try {
@@ -96,7 +103,7 @@ const TodoItem = ({ todo, index, onTodoDeleted, onTodoUpdated }: TodoItemProps) 
             </h1>
           </div>
 
-          <button onClick={deleteTodo(todo.id)} className="p-2 bg-gray-100 text-gray-500 rounded-lg hover:bg-gray-300 transition-colors">
+          <button type='button' onClick={deleteTodo(todo.id)} className="p-2 bg-gray-100 text-gray-500 rounded-lg hover:bg-gray-300 transition-colors">
             <svg
               className="w-4 h-4"
               fill="currentColor"
