@@ -23,7 +23,7 @@ const formatDate = (dateString: string) => {
   });
 };
 
-type TodoItemProps = { todo: FullTodo, index: number, onTodoDeleted: (id: number) => void, onTodoUpdated: (id: number, updatedTodo: FullTodo) => void };
+type TodoItemProps = { todo: FullTodo, index: number, onTodoDeleted: (id: number) => void, onTodoUpdated: (id: number, updatedTodo: Partial<Todo>) => void };
 
 const TodoItem = ({ todo, index, onTodoDeleted, onTodoUpdated }: TodoItemProps) => {
   const [isEditingTitle, setIsEditingTitle] = useState(false);
