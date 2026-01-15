@@ -23,9 +23,9 @@ const TodoError = () => {
   )
 }
 
-type TodoListProps = { todos: FullTodo[], onTodoDeleted: (id: number) => void  }
+type TodoListProps = { todos: FullTodo[], onTodoDeleted: (id: number) => void, onTodoUpdated: (id: number, updatedTodo: FullTodo) => void }
 
-const TodoList = ({ todos, onTodoDeleted }: TodoListProps) => {
+const TodoList = ({ todos, onTodoDeleted, onTodoUpdated }: TodoListProps) => {
     return (
     <>
       {todos.map((todo, index) => (
@@ -34,13 +34,16 @@ const TodoList = ({ todos, onTodoDeleted }: TodoListProps) => {
           todo={todo}
           index={index}
           onTodoDeleted={onTodoDeleted}
+          onTodoUpdated={onTodoUpdated}
         />
       ))}
     </>
   );
 };
 
-const TodoListView = ({ todos, onTodoDeleted }: { todos: FullTodo[], onTodoDeleted: (id: number) => void }) => {  return (
+// PROD : VÉRIFIER L'ANCIENNE MÉTHODE
+//   const handleTodoCreation = async (state, formData: FormData) => {
+const TodoListView = ({ todos, onTodoDeleted, onTodoUpdated }: { todos: FullTodo[], onTodoDeleted: (id: number) => void, onTodoUpdated: (id: number, updatedTodo: Partial<FullTodo>) => void }) => {  return (
     <div className="w-screen h-screen flex items-center justify-center p-8">
       <div className="todos-containter h-[70vh] max-md:bottom-[100px] absolute pt-10 max-xl:px-10 w-screen overflow-y-auto">
         <div className="max-w-7xl mx-auto flex items-center justify-between w-full mb-10">
@@ -61,7 +64,7 @@ const TodoListView = ({ todos, onTodoDeleted }: { todos: FullTodo[], onTodoDelet
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
           <ErrorBoundary fallback={<TodoError />} onError={(error) => { toast.error(error.message); }}>
             <Suspense fallback={<Spinner variant="button" text="Loading todos" />}>
-              <TodoList todos={todos} onTodoDeleted={onTodoDeleted} />
+              <TodoList todos={todos} onTodoDeleted={onTodoDeleted} onTodoUpdated={onTodoUpdated} />
             </Suspense>
           </ErrorBoundary>
         </div>
