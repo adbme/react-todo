@@ -23,10 +23,14 @@ const TodoError = () => {
   )
 }
 
-type TodoListProps = { todos: FullTodo[], onTodoDeleted: (id: number) => void, onTodoUpdated: (id: number, updatedTodo: FullTodo) => void }
+type TodoListProps = {
+  todos: FullTodo[],
+  onTodoDeleted: (id: number) => void,
+  onTodoUpdated: (id: number, updatedTodo: Partial<Todo>) => void
+}
 
 const TodoList = ({ todos, onTodoDeleted, onTodoUpdated }: TodoListProps) => {
-    return (
+  return (
     <>
       {todos.map((todo, index) => (
         <TodoItem
@@ -42,8 +46,13 @@ const TodoList = ({ todos, onTodoDeleted, onTodoUpdated }: TodoListProps) => {
 };
 
 // PROD : VÉRIFIER L'ANCIENNE MÉTHODE
-//   const handleTodoCreation = async (state, formData: FormData) => {
-const TodoListView = ({ todos, onTodoDeleted, onTodoUpdated }: { todos: FullTodo[], onTodoDeleted: (id: number) => void, onTodoUpdated: (id: number, updatedTodo: Partial<FullTodo>) => void }) => {  return (
+// const handleTodoCreation = async (state, formData: FormData) => {
+const TodoListView = ({ todos, onTodoDeleted, onTodoUpdated }: {
+  todos: FullTodo[],
+  onTodoDeleted: (id: number) => void,
+  onTodoUpdated: (id: number, updatedTodo: Partial<Todo>) => void
+}) => {
+  return (
     <div className="w-screen h-screen flex items-center justify-center p-8">
       <div className="todos-containter h-[70vh] max-md:bottom-[100px] absolute pt-10 max-xl:px-10 w-screen overflow-y-auto">
         <div className="max-w-7xl mx-auto flex items-center justify-between w-full mb-10">
