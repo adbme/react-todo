@@ -35,7 +35,9 @@ const InputGroup = ({
 
   const isValid = title.trim().length > 0 && content.trim().length > 0 && dueDate.trim().length > 0;
 
-  const handleTodoCreation = async (state, formData: FormData) => {
+  // PROD : VÉRIFIER L'ANCIENNE MÉTHODE
+  // const handleTodoCreation = async (state, formData: FormData) => {
+  const handleTodoCreation = async (prevState: string | undefined, formData: FormData) => {
     if (!isValid) {
       const message = "Please fill in all fields"
       toast.error(message)

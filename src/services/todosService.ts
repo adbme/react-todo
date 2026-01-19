@@ -66,9 +66,34 @@ const deleteTodoApi = async (id: number | string): Promise<void> => {
     }
 };
 
+const updateTodoApi = async (id: number, updateFields: Partial<Todo>): Promise<void> => {
+    const { dueDate, ...rest } = updateFields;
+    const apiData: any = { ...rest };
+    if (dueDate !== undefined) {
+        apiData.due_date = dueDate;
+    }
+
+    const response = await fetch(`${API_URL}?id=eq.${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Prefer': 'return=representation',
+            'Accept': 'application/vnd.pgrst.object+json'
+        },
+        body: JSON.stringify(apiData),
+    });
+
+    // PROD: SUPPRIMER
+    await delay(500);
+
+    if (!response.ok) {
+        throw new Error(`Failed to update todo ${id}`);
+    }
+}
 
 export {
     fetchTodos,
     createTodo,
-    deleteTodoApi
+    deleteTodoApi,
+    updateTodoApi
 }
