@@ -26,14 +26,14 @@ const Main = memo(({ setSwiper, setActiveIndex, swiper }: MainProps) => {
     setTodos((prevTodos) => prevTodos.filter(todo => todo.id !== id));
   }, []);
 
-  const updateTodo = (id: number, updatedTodo: Partial<FullTodo>) => {
+    const updateTodo = useCallback((id: number, updatedTodo: Partial<FullTodo>) => {
     setTodos((prevTodos) => prevTodos.map(todo => {
       if (todo.id === id) {
         return { ...todo, ...updatedTodo };
       }
       return todo;
     }));
-  }
+  }, []);
 
   return (
     <main className="w-screen">
