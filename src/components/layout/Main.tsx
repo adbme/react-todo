@@ -1,4 +1,4 @@
-import { memo, use, useCallback, useEffect, useState } from 'react';
+import { memo, use, useCallback, useEffect, useMemo, useState } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import LandingView from '../../views/LandingView';
@@ -76,8 +76,6 @@ const Main = memo(({ setSwiper, setActiveIndex, swiper }: MainProps) => {
   const sortTodos = (option: string) => {
     setSortOption(option);
 
-    console.log("Sorting todos by:", option);
-
     // const selectedOption = options.find(opt => opt.value === option);
     // if (selectedOption && selectedOption.sortFunction) {
     //   setTodos((prevTodos) => {
@@ -88,14 +86,13 @@ const Main = memo(({ setSwiper, setActiveIndex, swiper }: MainProps) => {
     // }
   }
 
-  let todosToDisplay = todos;
-  const selectedOption = options.find(opt => opt.value === sortOption);
+  const todosToDisplay = useMemo(() => {
+    const selectedOption = options.find(opt => opt.value === sortOption);
     if (selectedOption && selectedOption.sortFunction) {
-      console.log(todos)
-      todosToDisplay = selectedOption.sortFunction(todos);
-
-      console.log("Todos sorted:", todosToDisplay);
+      return selectedOption.sortFunction(todos);
     }
+    return todos;
+  }, [todos, sortOption]);
 
   return (
     <main className="w-screen">
