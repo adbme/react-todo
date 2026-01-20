@@ -61,7 +61,7 @@ const TodoItem = ({ todo, index, onTodoDeleted, onTodoUpdated }: TodoItemProps) 
     try {
       await updateTodoApi(todo.id, updateFields);
       onTodoUpdated(todo.id, updateFields);
-      toast.success("Todo updated successfully");
+      toast.success("Todo '" + todo.title + "' updated successfully");
     } catch (error: unknown) {
       console.error('Failed to update todo:', error);
       toast.error(error instanceof Error ? error.message : "failed to update todo");
