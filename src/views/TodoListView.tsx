@@ -73,9 +73,9 @@ const TodoListView = ({ todos, onTodoDeleted, onTodoUpdated, options, sortOption
 
             <select onChange={(e) => onTodoSorted(e.target.value)} className="bg-white/60 backdrop-blur-[50.1665px] rounded-2xl border border-gray-200 px-4 py-3 transition duration-200 w-fit" name="sort-todos" id="sort-todos">
               <option value="">All</option>
-              {options.map((options) => (
-                <option key={options.label} value={options.value}>
-                  {options.label}
+              {options.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
                 </option>
               ))}
             </select>
