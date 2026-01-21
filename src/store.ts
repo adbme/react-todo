@@ -14,6 +14,7 @@ interface TodoState {
   removeTodo: (id: number) => void;
   updateTodo: (id: number, updatedFields: Partial<FullTodo>) => void;
   setSortOption: (option: string) => void;
+  clearTodos: () => void;
   
   setSwiper: (swiper: SwiperType | null) => void;
   setActiveIndex: (index: number) => void;
@@ -33,6 +34,7 @@ export const useTodoStore = create<TodoState>((set, get) => ({
     todos: state.todos.map(t => t.id === id ? { ...t, ...updatedFields } : t)
   })),
   setSortOption: (option) => set({ sortOption: option }),
+  clearTodos: () => set({ todos: [] }),
 
   setSwiper: (swiper) => set({ swiper }),
   setActiveIndex: (activeIndex) => set({ activeIndex }),
