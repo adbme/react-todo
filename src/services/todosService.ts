@@ -66,6 +66,21 @@ const deleteTodoApi = async (id: number | string): Promise<void> => {
     }
 };
 
+const deleteAllTodosApi = async (): Promise<void> => {
+    const response = await fetch(`${API_URL}?id=not.is.null`, {
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json'
+        },
+    });
+
+    await delay(500);
+
+    if (!response.ok) {
+        throw new Error('Failed to delete all todos');
+    }
+};
+
 const updateTodoApi = async (id: number, updateFields: Partial<Todo>): Promise<void> => {
     const { dueDate, ...rest } = updateFields;
     const apiData: any = { ...rest };
@@ -95,5 +110,6 @@ export {
     fetchTodos,
     createTodo,
     deleteTodoApi,
-    updateTodoApi
+    updateTodoApi,
+    deleteAllTodosApi
 }
