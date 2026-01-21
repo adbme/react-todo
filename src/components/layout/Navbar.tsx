@@ -1,14 +1,11 @@
 import navbarImg from '../../assets/navbar.svg';
 import Button from '../ui/Button';
-import { Swiper } from 'swiper';
+import { useTodoStore } from '../../store';
 
-const Navbar = ({
-  swiper,
-  activeIndex,
-}: {
-  swiper: Swiper | null;
-  activeIndex: number;
-}) => {
+const Navbar = () => {
+  const activeIndex = useTodoStore((state) => state.activeIndex);
+  const swiper = useTodoStore((state) => state.swiper);
+
   return (
     <nav className="animate-entry-up z-40 fixed w-screen bottom-0 flex justify-center items-center">
       <div className="w-[90%] md:w-[50%] max-w-sm flex items-center justify-center">

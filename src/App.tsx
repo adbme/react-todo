@@ -8,16 +8,15 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'swiper/css';
 import Background from './components/ui/Background';
-import type { Swiper as SwiperType } from 'swiper';
 import Main from './components/layout/Main';
 import Spinner from './components/ui/Spinner';
 import { ErrorBoundary } from 'react-error-boundary';
+import { useTodoStore } from './store'; // Import du store
 
 const App = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [swiper, setSwiper] = useState<SwiperType | null>(null);
-
-  const [activeIndex, setActiveIndex] = useState(0);
+  
+  const activeIndex = useTodoStore((state) => state.activeIndex);
 
   const HALO_OPACITIES = [0.2, 0.4, 0.6, 0.8, 1] as const;
   const BASE_TRANSITION_DURATION = 0.08;
@@ -50,16 +49,16 @@ const App = () => {
       ))}
 
       <ToastContainer position="top-right" theme="dark" />
-      <Background activeIndex={activeIndex} />
+            <Background activeIndex={activeIndex} />
       <Header activeIndex={activeIndex} />
 
       <ErrorBoundary fallback={"Failed to load todos"} onError={(error) => { toast.error(error.message); }}>
         <Suspense fallback={<Spinner variant="button" text="Loading" />}>
-          <Main setSwiper={setSwiper} swiper={swiper} setActiveIndex={setActiveIndex} />
+          <Main /> 
         </Suspense>
       </ErrorBoundary>
 
-      <Navbar swiper={swiper} activeIndex={activeIndex} />
+      <Navbar />
     </div>
   );
 };

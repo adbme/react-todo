@@ -5,12 +5,8 @@ import LandingView from '../../views/LandingView';
 import TodoListView from '../../views/TodoListView';
 import { fetchTodos } from '../../services/todosService';
 import type { FullTodo } from '../Todo/TodoItem';
+import { useTodoStore } from '../../store';
 
-type MainProps = {
-  setSwiper: (S: SwiperType | null) => void
-  setActiveIndex: (n: number) => void
-  swiper: SwiperType | null
-}
 
 interface Option {
   label: string,
@@ -51,63 +47,24 @@ options = [
 
 const todoPromise = fetchTodos();
 
-const Main = memo(({ setSwiper, setActiveIndex, swiper }: MainProps) => {
-  const initalTodos = use(todoPromise);
-  const [todos, setTodos] = useState(initalTodos);
-  const [sortOption, setSortOption] = useState<string>('');
+const Main = memo(() => {
+  const initialTodos = use(todoPromise);
+  const setTodos = useTodoStore(state => state.setTodos);
+  const setSwiper = useTodoStore(state => state.setSwiper);
+  const setActiveIndex = useTodoStore(state => state.setActiveIndex);
 
-  const addTodo = (newTodo: FullTodo) => {
-    setTodos((prevTodos) => [...prevTodos, newTodo]);
-  }
-
-  const removeTodo = useCallback((id: number) => {
-    setTodos((prevTodos) => prevTodos.filter(todo => todo.id !== id));
-  }, []);
-
-  const updateTodo = useCallback((id: number, updatedTodo: Partial<FullTodo>) => {
-    setTodos((prevTodos) => prevTodos.map(todo => {
-      if (todo.id === id) {
-        return { ...todo, ...updatedTodo };
-      }
-      return todo;
-    }));
-  }, []);
-
-  const sortTodos = (option: string) => {
-    setSortOption(option);
-
-    // const selectedOption = options.find(opt => opt.value === option);
-    // if (selectedOption && selectedOption.sortFunction) {
-    //   setTodos((prevTodos) => {
-    //     const todosCopy = [...prevTodos];
-    //     todosCopy.sort(selectedOption.sortFunction);
-    //     return todosCopy;
-    //   });
-    // }
-  }
-
-  const todosToDisplay = useMemo(() => {
-    const selectedOption = options.find(opt => opt.value === sortOption);
-    if (selectedOption && selectedOption.sortFunction) {
-      return selectedOption.sortFunction(todos);
-    }
-    return todos;
-  }, [todos, sortOption]);
+  useEffect(() => {
+    setTodos(initialTodos);
+  }, [initialTodos, setTodos]);
 
   return (
     <main className="w-screen">
-      <Swiper
-        className="mySwiper h-full"
-        onSwiper={setSwiper}
+      <Swiper 
+        onSwiper={setSwiper} 
         onSlideChange={(s) => setActiveIndex(s.activeIndex)}
       >
-        <SwiperSlide>
-          <TodoListView todos={todosToDisplay} onTodoDeleted={removeTodo} onTodoUpdated={updateTodo} options={options} sortOption={sortOption} onTodoSorted={sortTodos} />
-        </SwiperSlide>
-
-        <SwiperSlide>
-          <LandingView swiper={swiper} onTodoCreated={addTodo} />
-        </SwiperSlide>
+        <SwiperSlide><TodoListView /></SwiperSlide>
+        <SwiperSlide><LandingView /></SwiperSlide>
       </Swiper>
     </main>
   );
