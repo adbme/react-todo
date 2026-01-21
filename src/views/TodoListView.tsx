@@ -5,6 +5,8 @@ import Spinner from '../components/ui/Spinner';
 import { toast } from 'react-toastify';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTodoStore } from '../store';
+import Button from '../components/ui/Button';
+import { deleteAllTodosApi } from '../services/todosService';
 
 const SORT_OPTIONS = [
   { label: 'Done', value: 'done' },
@@ -27,6 +29,7 @@ const TodoError = () => (
 
 const TodoListView = () => {
   const todos = useTodoStore((state) => state.todos);
+  const clearTodos = useTodoStore((state) => state.clearTodos);
   const sortOption = useTodoStore((state) => state.sortOption);
   const setSortOption = useTodoStore((state) => state.setSortOption);
 
@@ -47,11 +50,49 @@ const TodoListView = () => {
     }
   }, [todos, sortOption]);
 
+  const handleDeleteAll = async () => {
+    if (todos.length === 0) return;
+    
+    if (!confirm("Are you sure you want to delete all tasks?")) return;
+
+    const toastId = toast.loading("Deleting all tasks...");
+    
+    try {
+      await deleteAllTodosApi();
+      clearTodos();
+      toast.update(toastId, { 
+        render: "All tasks cleared!", 
+        type: "success", 
+        isLoading: false, 
+        autoClose: 3000 
+      });
+    } catch (error: any) {
+      toast.update(toastId, { 
+        render: "Error: " + error.message, 
+        type: "error", 
+        isLoading: false, 
+        autoClose: 3000 
+      });
+    }
+  };
+
   return (
     <div className="w-screen h-screen flex items-center justify-center p-8">
       <div className="todos-containter h-[70vh] max-md:bottom-[100px] absolute pt-10 max-xl:px-10 w-screen overflow-y-auto">
         <div className="max-w-7xl mx-auto flex items-center justify-between w-full mb-10">
           <div className="flex items-center gap-2">
+            <Button 
+              type='button' 
+              onClick={handleDeleteAll} 
+              variant="fill" 
+              rounded="normal"
+            >
+              <svg className="w-4 h-4 mr-2" fill='none' stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+              Clear List
+            </Button>
+
             <select
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
