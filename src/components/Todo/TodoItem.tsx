@@ -2,6 +2,7 @@ import { toast } from 'react-toastify';
 import Checkbox from '../ui/Checkbox';
 import { deleteTodoApi, updateTodoApi } from '../../services/todosService';
 import { useState, useEffect } from 'react';
+import { useTodoStore } from '../../store';
 
 export interface Todo {
   title: string;
@@ -15,13 +16,14 @@ export interface FullTodo extends Todo {
 }
 
 type TodoItemProps = {
-  todo: FullTodo,
-  index: number,
-  onTodoDeleted: (id: number) => void,
-  onTodoUpdated: (id: number, updatedTodo: Partial<Todo>) => void
+  todo: FullTodo;
+  index: number;
 };
 
-const TodoItem = ({ todo, index, onTodoDeleted, onTodoUpdated }: TodoItemProps) => {
+const TodoItem = ({ todo, index }: TodoItemProps) => {
+  const removeTodo = useTodoStore((state) => state.removeTodo);
+  const updateTodoInStore = useTodoStore((state) => state.updateTodo);
+
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [isEditingContent, setIsEditingContent] = useState(false);
   const [isEditingDueDate, setIsEditingDueDate] = useState(false);
@@ -41,7 +43,7 @@ const TodoItem = ({ todo, index, onTodoDeleted, onTodoUpdated }: TodoItemProps) 
   const deleteTodo = (id: number) => async () => {
     try {
       await deleteTodoApi(id);
-      onTodoDeleted(id);
+      removeTodo(id);
       toast.success("Todo deleted successfully");
     } catch (error: unknown) {
       console.error('Failed to delete todo:', error);
@@ -60,8 +62,8 @@ const TodoItem = ({ todo, index, onTodoDeleted, onTodoUpdated }: TodoItemProps) 
 
     try {
       await updateTodoApi(todo.id, updateFields);
-      onTodoUpdated(todo.id, updateFields);
-      toast.success("Todo '" + todo.title + "' updated successfully");
+      updateTodoInStore(todo.id, updateFields); // Appel au store
+      toast.success(`Todo '${todo.title}' updated successfully`);
     } catch (error: unknown) {
       console.error('Failed to update todo:', error);
       toast.error(error instanceof Error ? error.message : "failed to update todo");
