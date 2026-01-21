@@ -52,9 +52,9 @@ const InputGroup = ({
 
     try {
       const createdTodo = await createTodo(newTodo);
-      
-      addTodo(createdTodo); 
-      
+
+      addTodo(createdTodo);
+
       setTitle('');
       setContent('');
       setDueDate('');
@@ -97,6 +97,7 @@ const InputGroup = ({
           </div>
 
           <input
+            id='title'
             type="text"
             name="title"
             value={title}
@@ -126,6 +127,7 @@ const InputGroup = ({
         `}
         >
           <textarea
+            id="content"
             name="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
@@ -133,6 +135,7 @@ const InputGroup = ({
             placeholder="Description..."
           />
           <input
+            id="due_date"
             type='date'
             name='due_date'
             value={dueDate}
